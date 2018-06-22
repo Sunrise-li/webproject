@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.sql.ast.expr.SQLCaseExpr.Item;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.taotao.common.pojo.PageResult;
+import com.taotao.common.result.Result;
+import com.taotao.common.result.ResultGenerator;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemExample;
@@ -84,6 +89,17 @@ public class ItemServiceImpl implements ItemService {
 	public List<TbItem> findAll() {
 		// TODO Auto-generated method stub
 		return itemMapper.findAllItem();
+	}
+
+	@Override
+	public PageResult<List<TbItem>> getItemList(int page, int pageSize) {
+		TbItemExample example = new TbItemExample();
+		PageHelper.startPage(page, pageSize);
+		List<TbItem> list = itemMapper.selectByExample(example);
+		PageResult<List<TbItem>> item = new PageResult<>(ResultGenerator.getSuccessResult(list));
+		item.setTotal(new PageInfo<>(list).getTotal());
+		System.out.println(item.toString());
+		return item;
 	}
 
 }

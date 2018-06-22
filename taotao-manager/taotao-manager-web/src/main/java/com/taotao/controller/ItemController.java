@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.sql.ast.expr.SQLCaseExpr.Item;
+import com.taotao.common.pojo.PageResult;
+import com.taotao.common.result.Result;
+import com.taotao.common.result.ResultGenerator;
 import com.taotao.pojo.TbItem;
-import com.taotao.result.Result;
-import com.taotao.result.ResultGenerator;
 import com.taotao.service.ItemService;
 
 @Controller
@@ -33,5 +34,10 @@ public class ItemController {
 		System.out.println(result.getData().size());
 		System.out.println(result.toString());
 		return result; 
+	}
+	@RequestMapping("/page/{page}/{pageSize}")
+	public @ResponseBody PageResult<List<TbItem>> getPageItemList(@PathVariable int page,@PathVariable int pageSize){
+		return itemService.getItemList(page, pageSize);
+		
 	}
 }
