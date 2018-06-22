@@ -9,7 +9,7 @@
   <artifactId>taotao-manager</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <!-- 依赖管理 -->
+  <!-- 依赖管o理 -->
   <dependencies>
   	<dependency>
   		<groupId>com.taotao</groupId>
