@@ -1,16 +1,25 @@
-package com.taotao.result;
+package com.taotao.common.result;
 
-import com.alibaba.fastjson.JSON;
 
 public class Result<T> {
 	private int code;
 	private String message;
 	private T data;
 	
+	public Result() {
+		// TODO Auto-generated constructor stub
+	}
+	public Result(Result<T> result) {
+		this.code = result.getCode();
+		this.message = result.getMessage();
+		this.data = result.getData();
+	}
+	
 	public Result setCode(ResultCode resultCode) {
 		this.code = resultCode.code();
 		return this;
 	}
+	
 
 	public int getCode() {
 		return code;
@@ -34,10 +43,10 @@ public class Result<T> {
 		return this;
 	}
 
-	@Override
+/*	@Override
 	public String toString() {
 		return 	JSON.toJSONString(this);
-	}
+	}*/
 	
 	
 	

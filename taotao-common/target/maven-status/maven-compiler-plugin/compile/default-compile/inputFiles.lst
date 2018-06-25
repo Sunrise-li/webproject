@@ -1,3 +1,7 @@
-F:\taotao\taotao-common\src\main\java\com\taotao\result\Result.java
-F:\taotao\taotao-common\src\main\java\com\taotao\result\ResultGenerator.java
-F:\taotao\taotao-common\src\main\java\com\taotao\result\ResultCode.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\result\Result.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\pojo\EUDataGridResult.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\pojo\TaotaoResult.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\pojo\PageResult.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\result\ResultGenerator.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\pojo\EUTreeNode.java
+F:\taotao\taotao-common\src\main\java\com\taotao\common\result\ResultCode.java

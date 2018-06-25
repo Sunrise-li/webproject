@@ -7,10 +7,15 @@
 		<artifactId>taotao-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-		<groupId>com.taotao</groupId>
 		<artifactId>taotao-common</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+
 	<dependencies>
+	<!-- Jackson Json处理工具包 -->
+		 <dependency>
+			 <groupId>com.fasterxml.jackson.core</groupId> 
+			<artifactId>jackson-databind</artifactId> 
+			<version>2.9.5</version>
+		</dependency> 
 		<!-- 时间操作组件 -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -29,8 +34,6 @@
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 		</dependency>
-		<!-- Jackson Json处理工具包 <dependency> <groupId>com.fasterxml.jackson.core</groupId> 
-			<artifactId>jackson-databind</artifactId> </dependency> -->
 		<!--阿里 FastJson依赖 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>

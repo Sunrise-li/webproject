@@ -1,4 +1,4 @@
-package com.taotao.result;
+package com.taotao.common.result;
 
 /**
  * 生成相应结果

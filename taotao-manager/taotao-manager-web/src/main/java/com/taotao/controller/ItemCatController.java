@@ -1,19 +1,23 @@
 package com.taotao.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.taotao.common.pojo.EUTreeNode;
 import com.taotao.common.result.Result;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemCat;
 import com.taotao.service.ItemCatService;
 
 @Controller
-@RequestMapping("/itemCat")
+@RequestMapping("/item/cat")
 public class ItemCatController {
 	
 	@Resource
@@ -23,8 +27,8 @@ public class ItemCatController {
 	 * @param parentId
 	 * @return
 	 */
-	@RequestMapping("/{parentId}")
-	public @ResponseBody Result getItemCatById(@PathVariable Long parentId){
+	@RequestMapping("/list")
+	public @ResponseBody List<EUTreeNode> getItemCatById(@RequestParam(value="parentId",defaultValue="0") Long parentId){
 		return itemCatService.getItemCatListById(parentId);
 	}
 }

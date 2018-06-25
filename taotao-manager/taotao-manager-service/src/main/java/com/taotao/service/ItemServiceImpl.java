@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.druid.sql.ast.expr.SQLCaseExpr.Item;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.taotao.common.pojo.EUDataGridResult;
 import com.taotao.common.pojo.PageResult;
 import com.taotao.common.result.Result;
 import com.taotao.common.result.ResultGenerator;
@@ -92,14 +93,17 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public PageResult<List<TbItem>> getItemList(int page, int pageSize) {
+	public EUDataGridResult getItemList(int page, int pageSize) {
 		TbItemExample example = new TbItemExample();
 		PageHelper.startPage(page, pageSize);
 		List<TbItem> list = itemMapper.selectByExample(example);
-		PageResult<List<TbItem>> item = new PageResult<>(ResultGenerator.getSuccessResult(list));
+	/*	PageResult<List<TbItem>> item = new PageResult<>(ResultGenerator.getSuccessResult(list));
 		item.setTotal(new PageInfo<>(list).getTotal());
-		System.out.println(item.toString());
-		return item;
+		System.out.println(item.toString());*/
+		EUDataGridResult eu = new EUDataGridResult();
+		eu.setRows(list);
+		eu.setTotal(new PageInfo<>(list).getTotal());
+		return eu;
 	}
 
 }
