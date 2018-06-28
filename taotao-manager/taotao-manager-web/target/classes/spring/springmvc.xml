@@ -26,6 +26,15 @@
 	</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="5242880"></property>
+	</bean>
+	
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />

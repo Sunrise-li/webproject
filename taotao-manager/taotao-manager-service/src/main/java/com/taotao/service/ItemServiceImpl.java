@@ -1,5 +1,6 @@
 package com.taotao.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.exceptions.TooManyResultsException;
@@ -7,14 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.sql.ast.expr.SQLCaseExpr.Item;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EUDataGridResult;
 import com.taotao.common.pojo.PageResult;
+import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.common.result.Result;
 import com.taotao.common.result.ResultGenerator;
+import com.taotao.common.utils.IDUtils;
+import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.pojo.TbItemExample.Criteria;
 
@@ -22,6 +28,8 @@ import com.taotao.pojo.TbItemExample.Criteria;
 public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private TbItemMapper itemMapper;
+	@Autowired
+	private TbItemDescMapper itemDescMapper;
 	
 	@Override
 	public TbItem getItemById(long itemId) {
@@ -104,6 +112,33 @@ public class ItemServiceImpl implements ItemService {
 		eu.setRows(list);
 		eu.setTotal(new PageInfo<>(list).getTotal());
 		return eu;
+	}
+
+	@Override
+	public TaotaoResult createItem(TbItem item, String desc) {
+		//生成商品ID
+		long itemId = IDUtils.genItemId();
+		//不全TbItemID
+		item.setId(itemId);
+		//商品状态，1-正常，2-下架，3-删除
+		item.setStatus((byte)1);
+		//创建时间和更新时间
+		Date date = new Date();
+		item.setCreated(date);
+		item.setUpdated(date);
+		//插入商品列表
+		System.out.println("begin--->"+JSON.toJSONString(item));
+		itemMapper.insert(item);
+		System.out.println("end--->"+JSON.toJSONString(item));
+		//商品描述
+		TbItemDesc itemDesc = new TbItemDesc();
+		itemDesc.setItemId(itemId);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreated(date);
+		itemDesc.setUpdated(date);
+		itemDescMapper.insert(itemDesc);
+		System.out.println(TaotaoResult.ok());
+		return TaotaoResult.ok();
 	}
 
 }

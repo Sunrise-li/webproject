@@ -28,7 +28,8 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public @ResponseBody List<EUTreeNode> getItemCatById(@RequestParam(value="parentId",defaultValue="0") Long parentId){
+	public @ResponseBody List<EUTreeNode> getItemCatById(@RequestParam(value="id",defaultValue="0") Long parentId){
+		System.out.println(parentId);
 		return itemCatService.getItemCatListById(parentId);
 	}
 }
