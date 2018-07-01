@@ -2,6 +2,8 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
+
 public class TbContentCategory {
     private Long id;
 
@@ -81,5 +83,10 @@ public class TbContentCategory {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return JSON.toJSONString(this);
     }
 }

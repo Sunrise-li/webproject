@@ -112,8 +112,6 @@
 		//ajax的post方式提交表单
 		//$("#itemAddForm").serialize()将表单序列号为key-value形式的字符串
 		$.post("/item/save",$("#itemAddForm").serialize(), function(data){
-			var data = JSON.parse(data);
-			alert(data.status);
 			if(data.status == 200){
 				$.messager.alert('提示',"新增商品成功！");
 			}

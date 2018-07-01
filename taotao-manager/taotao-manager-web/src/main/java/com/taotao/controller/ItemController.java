@@ -25,9 +25,9 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 	
-	@RequestMapping("/item/{itemId}")
+	/*@RequestMapping("/item/{itemId}")*/
 	public @ResponseBody TbItem getItemById(@PathVariable Long itemId) {
-		System.out.println("--------");
+		System.out.println("-----------------");
 		TbItem item =  itemService.getItemById(itemId);
 		return item;
 	}
@@ -43,9 +43,9 @@ public class ItemController {
 		return itemService.getItemList(page, rows);
 	}
 	@RequestMapping(value = "/item/save",method=RequestMethod.POST)
-	public @ResponseBody TaotaoResult itemSave(TbItem item,String desc) {
+	public @ResponseBody TaotaoResult itemSave(TbItem item,String desc,String itemParams) {
 		
 		System.out.println(desc);
-		return itemService.createItem(item, desc);
+		return itemService.createItem(item, desc,itemParams);
 	}
 }

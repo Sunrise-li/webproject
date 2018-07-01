@@ -8,8 +8,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.taotao.controller" />
-	<mvc:annotation-driven>
-		<mvc:message-converters>
+	<mvc:annotation-driven/>
+	<!-- 	<mvc:message-converters>
 			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
@@ -23,9 +23,7 @@
                     <value>QuoteFieldNames</value>
                 </list>
             </property>
-	</bean>
-		</mvc:message-converters>
-	</mvc:annotation-driven>
+	</bean> -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 设定默认编码 -->

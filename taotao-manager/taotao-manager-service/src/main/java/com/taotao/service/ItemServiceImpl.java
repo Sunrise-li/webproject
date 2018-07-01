@@ -19,10 +19,12 @@ import com.taotao.common.result.ResultGenerator;
 import com.taotao.common.utils.IDUtils;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
+import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.pojo.TbItemExample.Criteria;
+import com.taotao.pojo.TbItemParamItem;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -30,6 +32,8 @@ public class ItemServiceImpl implements ItemService {
 	private TbItemMapper itemMapper;
 	@Autowired
 	private TbItemDescMapper itemDescMapper;
+	@Autowired
+	private TbItemParamItemMapper itemParamItemMapper;
 	
 	@Override
 	public TbItem getItemById(long itemId) {
@@ -115,7 +119,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public TaotaoResult createItem(TbItem item, String desc) {
+	public TaotaoResult createItem(TbItem item, String desc,String itemParam) {
 		//生成商品ID
 		long itemId = IDUtils.genItemId();
 		//不全TbItemID
@@ -127,9 +131,7 @@ public class ItemServiceImpl implements ItemService {
 		item.setCreated(date);
 		item.setUpdated(date);
 		//插入商品列表
-		System.out.println("begin--->"+JSON.toJSONString(item));
 		itemMapper.insert(item);
-		System.out.println("end--->"+JSON.toJSONString(item));
 		//商品描述
 		TbItemDesc itemDesc = new TbItemDesc();
 		itemDesc.setItemId(itemId);
@@ -138,6 +140,14 @@ public class ItemServiceImpl implements ItemService {
 		itemDesc.setUpdated(date);
 		itemDescMapper.insert(itemDesc);
 		System.out.println(TaotaoResult.ok());
+		//添加商品规格参数处理
+		TbItemParamItem itemParamItem = new TbItemParamItem();
+		itemParamItem.setCreated(date);
+		itemParamItem.setItemId(itemId);
+		itemParamItem.setParamData(itemParam);
+		itemParamItem.setUpdated(date);
+		itemParamItemMapper.insert(itemParamItem);
+		System.out.println(JSON.toJSONString(itemParamItem));
 		return TaotaoResult.ok();
 	}
 

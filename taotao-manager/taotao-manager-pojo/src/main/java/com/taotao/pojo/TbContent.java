@@ -2,6 +2,8 @@ package com.taotao.pojo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
+
 public class TbContent {
     private Long id;
 
@@ -111,5 +113,10 @@ public class TbContent {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return JSON.toJSONString(this);
     }
 }
