@@ -2,11 +2,14 @@ package com.taotao.common.pojo;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.http.HttpEntity;
@@ -35,17 +38,29 @@ public class HttpClientUtils {
 		// TODO Auto-generated constructor stub
 	}
 	public static String get(String url){
-		
+		return get(url, null);
+	}
+	public static String get(String url,Map<String, ?> params){
 		try {
+			if(params != null && params.size() > 0) {
+				Set<String> keys = params.keySet();
+				Object[] objs = keys.toArray();
+				url +="?"+objs[0]+"="+params.get(objs[0]);
+				for (int i = 1; i < objs.length; i++) {
+					url += "&"+objs[i]+"="+params.get(objs[i]);
+				}
+				System.out.println(url);
+			}
 			httpClient = HttpClients.createDefault();
 			//设置请求url
 			get = new HttpGet(url);
+			
 			//执行请求
 			response = httpClient.execute(get);
 			httpEntity = response.getEntity();
 			return EntityUtils.toString(httpEntity);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			//TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close();
@@ -95,4 +110,11 @@ public class HttpClientUtils {
 		}
 		return null;
 	}
+/*	public static void main(String[] args) {
+		Map<String, String> map = new HashMap<>();
+		map.put("keywords", "手机");
+		map.put("page", "1");
+		map.put("rows","100");
+		HttpClientUtils.get("http://localhost:8083/search/q", map);
+	}*/
 }
