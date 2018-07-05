@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.ExceptionUtils;
 import com.taotao.pojo.TbContent;
 import com.taotao.rest.service.ContentService;
 
@@ -23,5 +24,16 @@ public class ContentController {
 		System.out.println("content------------->"+cid);
 		List<TbContent> list = contentService.getContentList(cid);
 		return TaotaoResult.ok(list);
+	}
+	@RequestMapping("/sync/content/{cid}")
+	public @ResponseBody TaotaoResult syncContent(@PathVariable Long cid) {
+		try {
+			TaotaoResult result = contentService.syncContent(cid);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TaotaoResult.build(500, ExceptionUtils.getStackTrace(e));
+		}
+		
 	}
 }

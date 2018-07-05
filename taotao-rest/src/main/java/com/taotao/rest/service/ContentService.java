@@ -9,4 +9,6 @@ public interface ContentService {
 	
 	public List<TbContent> getContentList(Long cid);
 	
+	public TaotaoResult syncContent(Long cid) ;
+	
 }

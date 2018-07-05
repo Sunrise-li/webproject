@@ -3,6 +3,7 @@ package com.taotao.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.taotao.common.pojo.EUDataGridResult;
+import com.taotao.common.pojo.HttpClientUtils;
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.pojo.TbContent;
 import com.taotao.service.ContentService;
@@ -17,6 +19,13 @@ import com.taotao.service.ContentService;
 @Controller
 @RequestMapping("/content")
 public class ContentController {
+/*	REST_BASE_URL=http://127.0.0.1:8081/rest
+		REDIS_SYNC_URL=/sync/content/*/
+	@Value("${REST_BASE_URL}")
+	private String REST_BASE_URL;
+	
+	@Value("${REDIS_SYNC_URL}")
+	private String REDIS_SYNC_URL;
 	
 	@Autowired
 	private ContentService contentService;
@@ -32,12 +41,16 @@ public class ContentController {
 	
 	@RequestMapping("/save")
 	public @ResponseBody TaotaoResult saveContent(TbContent content) {
-		System.out.println(content.toString());
-		return contentService.insertContent(content);
+		TaotaoResult result = contentService.insertContent(content);
+		//调用rest服务同步缓存
+		HttpClientUtils.get(REST_BASE_URL+REDIS_SYNC_URL+content.getCategoryId());	
+		return result;
 	}
-	@RequestMapping("/edit")
+	@RequestMapping("/edihttp://www.jd.com/allSort.aspxt")
 	public @ResponseBody TaotaoResult editContent(TbContent content) {
-		System.out.println(content.toString());
-		return contentService.editContent(content);
+		TaotaoResult result = contentService.editContent(content);
+		//同步缓存数据
+		HttpClientUtils.get(REST_BASE_URL+REDIS_SYNC_URL+content.getCategoryId());
+		return result;
 	}
 }

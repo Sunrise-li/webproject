@@ -22,6 +22,7 @@ import com.taotao.mapper.TbItemMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
+import com.taotao.pojo.TbItemDescExample;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.pojo.TbItemExample.Criteria;
 import com.taotao.pojo.TbItemParamItem;
@@ -149,6 +150,44 @@ public class ItemServiceImpl implements ItemService {
 		itemParamItemMapper.insert(itemParamItem);
 		System.out.println(JSON.toJSONString(itemParamItem));
 		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TaotaoResult updateItem(TbItem item,String desc,String itemParams) {
+		//修改商品
+		Date date = new Date();
+		item.setUpdated(date);
+		itemMapper.updateByPrimaryKeySelective(item);
+		//更新商品描述
+		if(desc != null && desc != "") {
+			TbItemDesc itemDesc = new TbItemDesc();
+			itemDesc.setItemId(item.getId());
+			itemDesc.setItemDesc(desc);
+			itemDesc.setUpdated(date);
+			itemDescMapper.updateByPrimaryKeySelective(itemDesc);
+		}
+		//更新商品规格参数
+		int start = itemParams.indexOf("[");
+		int end = itemParams.lastIndexOf("]");
+		String test = itemParams.substring(itemParams.indexOf("[")+1);
+		test = test.substring(test.indexOf("]")+1);
+	
+		if(((end - start) > 1) && test !="") {
+			TbItemParamItem param = new TbItemParamItem();
+			param.setItemId(item.getId());
+			param.setParamData(itemParams);
+			param.setUpdated(date);
+			itemParamItemMapper.updateByPrimaryItemKeySelective(param);
+		}
+		return TaotaoResult.ok();
+	}
+	public static void main(String[] args) {
+		String str = "[]";
+		String test = str.substring(str.indexOf("[")+1);
+		test = test.substring(test.indexOf("]")+1);
+		System.out.println(test);
+	
+	
 	}
 
 }

@@ -3,11 +3,9 @@ package com.taotao.portal.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.HttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
 import com.taotao.common.pojo.HttpClientUtils;
 import com.taotao.common.pojo.TaotaoResult;
@@ -31,6 +29,8 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	public String getContentAdList() {
+		System.out.println(REST_BASE_URL+REST_CONTENT_URL+REST_CONTENT_AD1_CID);
+		
 		//调用服务获得数据
 		String json = HttpClientUtils.get(REST_BASE_URL+REST_CONTENT_URL+REST_CONTENT_AD1_CID);
 		//把json转换成java对象

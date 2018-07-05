@@ -8,7 +8,12 @@ import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.pojo.TbItem;
 
 public interface ItemService extends Service<TbItem>{
+	
 	TbItem getItemById(long itemId);
+	
 	EUDataGridResult getItemList(int page,int pageSize);
+	
 	TaotaoResult createItem(TbItem item,String desc,String itemParam);
+	
+	TaotaoResult updateItem(TbItem item,String desc,String itemParams);
 }

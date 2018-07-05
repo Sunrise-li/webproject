@@ -38,14 +38,40 @@ public class ItemController {
 		System.out.println(result.toString());
 		return result; 
 	}
+	/**
+	 * 查询商品
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("/item/list")
 	public @ResponseBody EUDataGridResult getPageItemList(Integer page,Integer rows){
 		return itemService.getItemList(page, rows);
 	}
+	/**
+	 * 增加商品
+	 * @param item
+	 * @param desc
+	 * @param itemParams
+	 * @return
+	 */
 	@RequestMapping(value = "/item/save",method=RequestMethod.POST)
 	public @ResponseBody TaotaoResult itemSave(TbItem item,String desc,String itemParams) {
 		
 		System.out.println(desc);
 		return itemService.createItem(item, desc,itemParams);
+	}
+	
+	/**
+	 * 修改商品信息
+	 * @param item
+	 * @return
+	 */
+	@RequestMapping(value = "/item/update",method=RequestMethod.POST)
+	public @ResponseBody TaotaoResult itemUpdate(TbItem item,String desc,String itemParams) {
+		System.out.println(JSON.toJSONString(item));
+		System.out.println(desc);
+		System.out.println(itemParams);
+		return itemService.updateItem(item, desc, itemParams);
 	}
 }

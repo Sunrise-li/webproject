@@ -233,6 +233,23 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+    <update id="updateByPrimaryItemKeySelective" parameterType="com.taotao.pojo.TbItemParamItem" >
+    update tb_item_param_item
+    <set >
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paramData != null" >
+        param_data = #{paramData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>	
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+  
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taotao.pojo.TbItemParamItem" >
     update tb_item_param_item
     set item_id = #{itemId,jdbcType=BIGINT},
